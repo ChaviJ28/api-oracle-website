@@ -42,7 +42,7 @@ module.exports = {
             sails.log.debug("send-email.js (Line: 42) : e");
             sails.log.debug(err);
 
-            error.push(err);
+            error.push(await sails.helpers.utility.getAppError("email.send_email_error"));
             return exits.jsonError(error);
         }
     }

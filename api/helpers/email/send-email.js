@@ -1,6 +1,6 @@
 module.exports = {
-    friendlyName: "Calculates the commission based on a purchase and allocates the rewards and transfers the amount of BUNs purchased to the buyer",
-    description: "Calculates the commission based on a purchase and allocates the rewards and transfers the amount of BUNs purchased to the buyer",
+    friendlyName: "Send Email From OCI Email Delivery System",
+    description: "Send Email From OCI Email Delivery System",
     inputs: {
         to: {
             type: "string",
