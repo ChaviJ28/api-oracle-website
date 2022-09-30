@@ -60,44 +60,51 @@ module.exports = {
                 if (error.length > 0) {
                     return exits.jsonError(error);
                 } else {
-                    validRights = await sails.helpers.user.validateInputAccessRights(inputs.data.access);
+                    validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
                     if (!validRights) {
-                        error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
+                        error.push(await sails.helpers.utility.getAppError("user.no_access"));
+
                         return exits.jsonError(error);
-                    }
-
-                    //generate plain password
-                    plainPassword = randomstring.generate({
-                        length: 8,
-                        charset: "alphanumeric"
-                    });
-
-                    //hash password
-                    hashPassword = await sails.helpers.utility.hashPassword(plainPassword);
-
-                    //send plain password to user through mail
-
-                    insertParams = {
-                        email: inputs.data.email,
-                        full_name: inputs.data.full_name,
-                        username: inputs.data.username,
-                        password: hashPassword,
-                        access: inputs.data.access
-                    };
-
-                    addedResponse = await User.create(insertParams).fetch();
-
-                    await sails.helpers.customLog.createCustomLog({
-                        title: "Create User",
-                        description: "User " + inputs.data.full_name + " created",
-                        user_id: inputs.auth.user_token || null
-                    })
-
-                    return exits.success({
-                        data: {
-                            user: addedResponse
+                    } else {
+                        validInputRights = await sails.helpers.user.validateInputAccessRights(inputs.data.access);
+                        if (!validInputRights) {
+                            error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
+                            return exits.jsonError(error);
                         }
-                    });
+
+                        //generate plain password
+                        plainPassword = randomstring.generate({
+                            length: 8,
+                            charset: "alphanumeric"
+                        });
+
+                        //hash password
+                        hashPassword = await sails.helpers.utility.hashPassword(plainPassword);
+
+                        //send plain password to user through mail
+
+                        insertParams = {
+                            email: inputs.data.email,
+                            full_name: inputs.data.full_name,
+                            username: inputs.data.username,
+                            password: hashPassword,
+                            access: inputs.data.access
+                        };
+
+                        addedResponse = await User.create(insertParams).fetch();
+
+                        await sails.helpers.customLog.createCustomLog({
+                            title: "Create User",
+                            description: "User " + inputs.data.full_name + " created",
+                            user_id: inputs.auth.user_token || null
+                        })
+
+                        return exits.success({
+                            data: {
+                                user: addedResponse
+                            }
+                        });
+                    }
                 }
             }
         } catch (err) {

@@ -30,20 +30,34 @@ module.exports = {
                 sort = null,
                 promise = null;
 
-            if (inputs && inputs.data) {
-                if (inputs.data.search_criteria) {
-                    searchCriteria = inputs.data.search_criteria;
-                }
-
-                userList = await User.find(searchCriteria);
-
-                return exits.success({
-                    data: userList
-                });
-            } else {
-                error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
+            validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
+            if (!validRights) {
+                error.push(await sails.helpers.utility.getAppError("user.no_access"));
 
                 return exits.jsonError(error);
+            } else {
+
+                if (inputs && inputs.data) {
+                    if (inputs.data.search_criteria) {
+                        searchCriteria = inputs.data.search_criteria;
+                    }
+
+                    userList = await User.find(searchCriteria);
+
+                    await sails.helpers.customLog.createCustomLog({
+                        title: "List User",
+                        description: "params: " + searchCriteria,
+                        user_id: inputs.auth.user_token || null
+                    })
+
+                    return exits.success({
+                        data: userList
+                    });
+                } else {
+                    error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
+
+                    return exits.jsonError(error);
+                }
             }
         } catch (err) {
             sails.log.debug("list-user.js (Line: 51) : e"); //debug

@@ -29,18 +29,25 @@ module.exports = {
 
         try {
             if (inputs && inputs.data && !isEmptyObject(inputs.data)) {
-                await User.destroy(inputs.data);
+                validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
+                if (!validRights) {
+                    error.push(await sails.helpers.utility.getAppError("user.no_access"));
 
-                await sails.helpers.customLog.createCustomLog({
-                    title: "Delete User",
-                    description: "User " + inputs.data.full_name + " deleted",
-                    user_id: inputs.auth.user_token || null
-                })
+                    return exits.jsonError(error);
+                } else {
+                    await User.destroy(inputs.data);
+
+                    await sails.helpers.customLog.createCustomLog({
+                        title: "Delete User",
+                        description: "User " + inputs.data.full_name + " deleted",
+                        user_id: inputs.auth.user_token || null
+                    })
 
 
-                exits.success({
-                    success_message: "User deleted successfully"
-                });
+                    exits.success({
+                        success_message: "User deleted successfully"
+                    });
+                }
 
             } else {
                 error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
