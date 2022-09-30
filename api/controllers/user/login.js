@@ -67,6 +67,10 @@ module.exports = {
                                     access: userList[0].access,
                                 }
 
+                                return exits.success({
+                                    success_message: "Login Successfully"
+                                });
+
                             } else {
                                 error.push(await sails.helpers.utility.getAppError("user.not_active_user"));
 
@@ -82,10 +86,6 @@ module.exports = {
 
                         return exits.jsonError(error);
                     }
-
-                    return exits.success({
-                        success_message: "Login Successfully"
-                    });
                 }
 
             } else {
