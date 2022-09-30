@@ -53,8 +53,7 @@ module.exports = {
                         username: inputs.data.username
                     });
 
-                    if (userList.length > 0) {
-                        //check password then
+                    if (userList[0]) {
                         validPassword = await sails.helpers.utility.bcryptNodejs.comparePassword(inputs.data.password, userList[0].password);
 
                         if (validPassword) {

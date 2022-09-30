@@ -7,15 +7,25 @@ module.exports = {
             required: true
         },
         access: {
-            type: "json",
+            type: "string",
             required: true
         },
     },
 
     fn: async function (inputs, exits) {
-        var valid = true;
+        var valid = false;
 
-        //check if user is active and has rights
+        userList = await User.find({
+            id: inputs.user_id
+        });
+
+        if (userList[0]) {
+            if (userList[0].active == User.constants.active.yes) {
+                if (userList[0].access.includes(inputs.access)) {
+                    valid = true;
+                }
+            }
+        }
 
         return exits.success(valid);
     }
