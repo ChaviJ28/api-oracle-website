@@ -84,7 +84,7 @@ module.exports = {
                         //send plain password to user through mail
 
                         insertParams = {
-                            email: inputs.data.email,
+                            email: inputs.data.email.toLowerCase(),
                             full_name: inputs.data.full_name,
                             username: inputs.data.username,
                             password: hashPassword,

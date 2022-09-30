@@ -44,6 +44,11 @@ module.exports = {
 
                     return exits.jsonError(error);
                 } else {
+                    if (inputs.data.update_params.password) {
+                        hashPassword = await sails.helpers.utility.hashPassword(inputs.data.update_params.password);
+                        inputs.data.update_params.password = hashPassword;
+                    }
+
                     if (inputs.data.update_params.access) {
                         validInputRights = await sails.helpers.user.validateInputAccessRights(inputs.data.update_params.access);
                         if (validInputRights) {

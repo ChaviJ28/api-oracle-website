@@ -53,6 +53,10 @@ module.exports.apperrors = {
         no_access: {
             code: 5403,
             message: "Access Denied. Contact Admin"
-        }
+        },
+        invalid_email: {
+            code: 5404,
+            message: "Invalid Email"
+        },
     }
 }
