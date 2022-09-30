@@ -52,7 +52,7 @@ module.exports.apperrors = {
         },
         no_access: {
             code: 5403,
-            message: "Access Denied. Try Login Again"
+            message: "Access Denied. Contact Admin"
         }
     }
 }
