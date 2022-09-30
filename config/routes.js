@@ -32,11 +32,11 @@ module.exports.routes = {
   },
 
   'post /login': {
-    action: 'user/delete-user'
+    action: 'user/login'
   },
 
   'post /log/list': {
-    action: 'user/delete-user'
+    action: 'custom-log/list-custom-log'
   },
 
 };
