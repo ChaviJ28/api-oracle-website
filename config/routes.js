@@ -23,4 +23,20 @@ module.exports.routes = {
     action: 'user/delete-user'
   },
 
+  'post /user/forget-username': {
+    action: 'user/forgot-username'
+  },
+
+  'post /user/forget-password': {
+    action: 'user/forgot-password'
+  },
+
+  'post /login': {
+    action: 'user/delete-user'
+  },
+
+  'post /log/list': {
+    action: 'user/delete-user'
+  },
+
 };
