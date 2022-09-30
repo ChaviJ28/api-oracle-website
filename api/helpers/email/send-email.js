@@ -44,6 +44,13 @@ module.exports = {
 
         info = await transporter.sendMail(msg);
 
+        await sails.helpers.customLog.createCustomLog({
+            title: "Send Email",
+            description: "send email to " + inputs.to,
+            user_id: inputs.auth.user_token || null,
+            severity: "log"
+        })
+
         return exits.success({
             response: info
         });

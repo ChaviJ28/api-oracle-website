@@ -51,13 +51,21 @@ module.exports = {
                         }
 
                         updateResponse = await User.update(inputs.data.search_criteria, updateParams).fetch();
+
                     } else {
                         error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
+
                         return exits.jsonError(error);
                     }
                 } else {
                     updateResponse = await User.update(inputs.data.search_criteria, inputs.data.update_params).fetch();
                 }
+
+                await sails.helpers.customLog.createCustomLog({
+                    title: "Update User",
+                    description: "User " + inputs.data.full_name + " updated with params : " + inputs.data.update_params,
+                    user_id: inputs.auth.user_token || null
+                })
 
                 return exits.success({
                     success_message: "User updated successfully"

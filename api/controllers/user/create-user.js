@@ -13,6 +13,7 @@ module.exports = {
         auth: {
             type: {},
             example: {
+                user_token: "",
                 app_token: ""
             }
         }
@@ -85,6 +86,12 @@ module.exports = {
                     };
 
                     addedResponse = await User.create(insertParams).fetch();
+
+                    await sails.helpers.customLog.createCustomLog({
+                        title: "Create User",
+                        description: "User " + inputs.data.full_name + " created",
+                        user_id: inputs.auth.user_token || null
+                    })
 
                     return exits.success({
                         data: {

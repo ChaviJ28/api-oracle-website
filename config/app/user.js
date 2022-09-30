@@ -1,6 +1,6 @@
 module.exports.user = {
-    default_password: "default123",
     access_rights: [
+        "logs",
         "create_user",
         "list_user",
     ]

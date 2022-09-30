@@ -30,6 +30,14 @@ module.exports = {
         try {
             if (inputs && inputs.data && !isEmptyObject(inputs.data)) {
                 await User.destroy(inputs.data);
+
+                await sails.helpers.customLog.createCustomLog({
+                    title: "Delete User",
+                    description: "User " + inputs.data.full_name + " deleted",
+                    user_id: inputs.auth.user_token || null
+                })
+
+
                 exits.success({
                     success_message: "User deleted successfully"
                 });
