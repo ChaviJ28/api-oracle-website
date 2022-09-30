@@ -1,7 +1,11 @@
 module.exports = {
-    friendlyName: "Validate Access Rights",
-    description: "Validate Access Rights",
+    friendlyName: "Check if User is Active and has rights",
+    description: "Check if User is Active and has rights",
     inputs: {
+        user_id: {
+            type: "string",
+            required: true
+        },
         access: {
             type: "json",
             required: true
@@ -9,16 +13,9 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        var valid = true,
-            accessRightsArray = sails.config.user.access_rights;
+        var valid = true;
 
-        for (let i = 0; i < inputs.access.length; i++) {
-            const element = inputs.access[i];
-            if (!accessRightsArray.includes(element)) {
-                valid = false;
-                break
-            }
-        }
+        //check if user is active and has rights
 
         return exits.success(valid);
     }

@@ -7,8 +7,7 @@ module.exports = {
             example: {
                 email: "chavi.surujbhali@umail.uom.ac.mu",
                 full_name: "Chavi Surujbhali",
-                username: "ChaviJ28",
-                password: "test"
+                username: "ChaviJ28"
             }
         },
         auth: {
@@ -32,6 +31,9 @@ module.exports = {
                 insertParams = {},
                 simpleValidator = require("@suyashsumaroo/simple-validator"),
                 validationElements = [],
+                randomstring = require("randomstring"),
+                plainPassword = "",
+                hashPassword = "",
                 addedResponse = "";
 
             if (inputs.data) {
@@ -50,17 +52,6 @@ module.exports = {
                     value: inputs.data.username,
                     name: "Username",
                     required: User.attributes.username.required
-                }, {
-                    type: simpleValidator.constants.type.string,
-                    value: inputs.data.password,
-                    name: "Password",
-                    required: User.attributes.password.required
-                }, {
-                    type: simpleValidator.constants.type.string,
-                    value: inputs.data.administrator,
-                    name: "Administrator",
-                    required: User.attributes.administrator.required,
-                    in: User.attributes.administrator.isIn
                 }];
 
                 error = simpleValidator.validate(validationElements);
@@ -68,18 +59,28 @@ module.exports = {
                 if (error.length > 0) {
                     return exits.jsonError(error);
                 } else {
-                    validRights = await sails.helpers.user.validateAccessRights(inputs.data.access);
+                    validRights = await sails.helpers.user.validateInputAccessRights(inputs.data.access);
                     if (!validRights) {
                         error.push(await sails.helpers.utility.getAppError("general.invalid_parameters"));
                         return exits.jsonError(error);
                     }
 
+                    //generate plain password
+                    plainPassword = randomstring.generate({
+                        length: 8,
+                        charset: "alphanumeric"
+                    });
+
+                    //hash password
+                    hashPassword = await sails.helpers.utility.hashPassword(plainPassword);
+
+                    //send plain password to user through mail
+
                     insertParams = {
                         email: inputs.data.email,
                         full_name: inputs.data.full_name,
                         username: inputs.data.username,
-                        password: inputs.data.password,
-                        administrator: inputs.data.administrator,
+                        password: hashPassword,
                         access: inputs.data.access
                     };
 

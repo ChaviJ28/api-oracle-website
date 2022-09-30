@@ -37,4 +37,22 @@ module.exports.apperrors = {
             message: "Could not send email"
         }
     },
+    user: {
+        invalid_login_username: {
+            code: 5400,
+            message: "Invalid Username"
+        },
+        invalid_login_password: {
+            code: 5401,
+            message: "Invalid Password, Try Again"
+        },
+        not_active_user: {
+            code: 5402,
+            message: "Deactived Account. Contact Admin"
+        },
+        no_access: {
+            code: 5403,
+            message: "Access Denied. Try Login Again"
+        }
+    }
 }

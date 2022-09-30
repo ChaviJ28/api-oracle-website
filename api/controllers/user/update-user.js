@@ -39,7 +39,7 @@ module.exports = {
         try {
             if (inputs.data && inputs.data.search_criteria && inputs.data.update_params && !isEmptyObject(inputs.data.search_criteria)) {
                 if (inputs.data.update_params.access) {
-                    validRights = await sails.helpers.user.validateAccessRights(inputs.data.update_params.access);
+                    validRights = await sails.helpers.user.validateInputAccessRights(inputs.data.update_params.access);
                     if (validRights) {
                         userList = await User.find(inputs.data.search_criteria);
                         userRecord = userList[0];
