@@ -22,11 +22,6 @@ module.exports = {
             type: "string",
             required: false
         },
-        administrator: {
-            type: "string",
-            defaultsTo: "no",
-            isIn: ["yes", "no"]
-        },
         access: {
             type: "json",
             required: false
@@ -38,10 +33,6 @@ module.exports = {
         }
     },
     constants: {
-        administrator: {
-            yes: "yes",
-            no: "no"
-        },
         active: {
             yes: "yes",
             no: "no"
