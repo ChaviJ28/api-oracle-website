@@ -60,7 +60,7 @@ module.exports = {
                 if (error.length > 0) {
                     return exits.jsonError(error);
                 } else {
-                    validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
+                    validRights = await sails.helpers.user.validateAccessRights(inputs.auth.user_token, "create_user")
                     if (!validRights) {
                         error.push(await sails.helpers.utility.getAppError("user.no_access"));
 
@@ -77,6 +77,8 @@ module.exports = {
                             length: 8,
                             charset: "alphanumeric"
                         });
+
+                        sails.log.debug("password: " + plainPassword)
 
                         //hash password
                         hashPassword = await sails.helpers.utility.hashPassword(plainPassword);
@@ -96,12 +98,13 @@ module.exports = {
                         await sails.helpers.customLog.createCustomLog({
                             title: "Create User",
                             description: "User " + inputs.data.full_name + " created",
-                            user_id: inputs.auth.user_token || null
+                            user_id: inputs.auth.user_token
                         })
 
                         return exits.success({
+                            success_message: "User Created Successfully",
                             data: {
-                                user: addedResponse
+                                user: userObject
                             }
                         });
                     }

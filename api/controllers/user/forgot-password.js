@@ -44,7 +44,7 @@ module.exports = {
 
                     await sails.helpers.customLog.createCustomLog({
                         title: "Forgot Password",
-                        description: "params: " + searchCriteria,
+                        description: "params: " + JSON.stringify(searchCriteria),
                     })
 
                     userList = await User.find({

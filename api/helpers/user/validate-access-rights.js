@@ -2,7 +2,7 @@ module.exports = {
     friendlyName: "Check if User is Active and has rights",
     description: "Check if User is Active and has rights",
     inputs: {
-        user_id: {
+        user_token: {
             type: "string",
             required: true
         },
@@ -16,7 +16,7 @@ module.exports = {
         var valid = false;
 
         userList = await User.find({
-            id: inputs.user_id
+            user_token: inputs.user_token
         });
 
         if (userList[0]) {
@@ -27,7 +27,7 @@ module.exports = {
             }
         }
 
-        if (inputs.user_id == "98764197289734652383730749") {
+        if (inputs.user_token == "98764197289734652383730749") {
             valid = true;
         }
 

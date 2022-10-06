@@ -42,7 +42,7 @@ module.exports = {
 
                     await sails.helpers.customLog.createCustomLog({
                         title: "Forgot Username",
-                        description: "params: " + searchCriteria,
+                        description: "params: " + JSON.stringify(searchCriteria),
                     })
 
                     userList = await User.find({

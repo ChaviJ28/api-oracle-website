@@ -1,5 +1,3 @@
-const User = require("../../models/User");
-
 module.exports = {
     friendlyName: "Login",
     description: "Login",
@@ -27,13 +25,16 @@ module.exports = {
             var error = [],
                 searchCriteria = {},
                 validPassword = false,
+                simpleValidator = require("@suyashsumaroo/simple-validator"),
+                randomstring = require("randomstring"),
+                userToken = "",
                 userObject = {},
                 userList = [];
 
             if (inputs && inputs.data) {
 
                 validationElements = [{
-                    type: simpleValidator.constants.type.email,
+                    type: simpleValidator.constants.type.string,
                     value: inputs.data.username,
                     name: "username",
                     required: true
@@ -54,21 +55,43 @@ module.exports = {
                     });
 
                     if (userList[0]) {
-                        validPassword = await sails.helpers.utility.bcryptNodejs.comparePassword(inputs.data.password, userList[0].password);
+                        validPassword = await sails.helpers.utility.comparePassword(inputs.data.password, userList[0].password);
 
                         if (validPassword) {
 
                             if (userList[0].active == User.constants.active.yes) {
+
+                                userToken = randomstring.generate({
+                                    length: 54,
+                                    charset: "alphanumeric"
+                                });
+
+                                userToken += userList[0].id
+
+                                userToken += randomstring.generate({
+                                    length: 21,
+                                    charset: "alphanumeric"
+                                });
+
+                                await User.update({
+                                    id: userList[0].id
+                                }, {
+                                    user_token: userToken
+                                });
 
                                 userObject = {
                                     email: userList[0].email,
                                     full_name: userList[0].full_name,
                                     username: userList[0].username,
                                     access: userList[0].access,
+                                    user_token: userToken
                                 }
 
                                 return exits.success({
-                                    success_message: "Login Successfully"
+                                    success_message: "Login Successfully",
+                                    data: {
+                                        user: userObject
+                                    }
                                 });
 
                             } else {

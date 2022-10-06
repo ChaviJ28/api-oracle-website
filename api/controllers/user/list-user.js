@@ -11,6 +11,13 @@ module.exports = {
                     }
                 }
             }
+        },
+        auth: {
+            type: {},
+            example: {
+                app_token: "",
+                user_token: "",
+            }
         }
     },
     exits: {
@@ -30,7 +37,7 @@ module.exports = {
                 sort = null,
                 promise = null;
 
-            validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
+            validRights = await sails.helpers.user.validateAccessRights(inputs.auth.user_token, "list_user")
             if (!validRights) {
                 error.push(await sails.helpers.utility.getAppError("user.no_access"));
 
@@ -46,8 +53,8 @@ module.exports = {
 
                     await sails.helpers.customLog.createCustomLog({
                         title: "List User",
-                        description: "params: " + searchCriteria,
-                        user_id: inputs.auth.user_token || null
+                        description: "params: " + JSON.stringify(searchCriteria),
+                        user_id: inputs.auth.user_token
                     })
 
                     return exits.success({

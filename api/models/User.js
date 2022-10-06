@@ -26,6 +26,10 @@ module.exports = {
             type: "json",
             required: false
         },
+        user_token: {
+            type: "string",
+            required: false
+        },
         active: {
             type: "string",
             defaultsTo: "yes",

@@ -11,7 +11,8 @@ module.exports = {
         auth: {
             type: {},
             example: {
-                app_token: ""
+                app_token: "",
+                user_token: "",
             }
         }
     },
@@ -29,7 +30,7 @@ module.exports = {
 
         try {
             if (inputs && inputs.data && !isEmptyObject(inputs.data)) {
-                validRights = await sails.helpers.user.validAccessRights(inputs.auth.user_token, "create_user")
+                validRights = await sails.helpers.user.validateAccessRights(inputs.auth.user_token, "create_user")
                 if (!validRights) {
                     error.push(await sails.helpers.utility.getAppError("user.no_access"));
 
@@ -40,7 +41,7 @@ module.exports = {
                     await sails.helpers.customLog.createCustomLog({
                         title: "Delete User",
                         description: "User " + inputs.data.full_name + " deleted",
-                        user_id: inputs.auth.user_token || null
+                        user_id: inputs.auth.user_token
                     })
 
 
