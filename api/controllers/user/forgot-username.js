@@ -22,13 +22,14 @@ module.exports = {
     fn: async function (inputs, exits) {
         try {
             var error = [],
+                simpleValidator = require("@suyashsumaroo/simple-validator"),
                 searchCriteria = {},
                 userList = [];
 
 
             if (inputs.data) {
                 validationElements = [{
-                    type: simpleValidator.constants.type.string,
+                    type: simpleValidator.constants.type.email,
                     value: inputs.data.email,
                     name: "Email",
                     required: true
@@ -52,6 +53,7 @@ module.exports = {
                     if (userList[0]) {
 
                         //send username to email
+                        sails.log.debug(userList[0].username)
 
 
                         return exits.success({

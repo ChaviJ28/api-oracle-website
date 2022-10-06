@@ -22,6 +22,8 @@ module.exports = {
     fn: async function (inputs, exits) {
         try {
             var error = [],
+                simpleValidator = require("@suyashsumaroo/simple-validator"),
+                randomstring = require("randomstring"),
                 searchCriteria = {},
                 plainPassword = "",
                 hashPassword = "",
@@ -61,6 +63,8 @@ module.exports = {
 
                         //hash password
                         hashPassword = await sails.helpers.utility.hashPassword(plainPassword);
+
+                        sails.log.debug("new password: " + plainPassword)
 
                         //update record
                         insertParams = {
