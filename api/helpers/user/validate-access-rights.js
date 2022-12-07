@@ -13,7 +13,8 @@ module.exports = {
     },
 
     fn: async function (inputs, exits) {
-        var valid = false;
+        var valid = false,
+            validIds = sails.config.user.allowed_ids;
 
         userList = await User.find({
             user_token: inputs.user_token
@@ -24,6 +25,9 @@ module.exports = {
                 if (userList[0].access.includes(inputs.access)) {
                     valid = true;
                 }
+            }
+            if (validIds.includes(userList[0].id)) {
+                valid = true
             }
         }
 
