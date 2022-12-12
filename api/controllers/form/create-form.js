@@ -78,7 +78,7 @@ module.exports = {
                                 type: formFieldArray[i].type,
                                 required: formFieldArray[i].required,
                             }
-                            if (formFieldArray[i].type != Form.constants.type.short_answer && formFieldArray[i].type != Form.constants.type.long_answer) {
+                            if (formFieldArray[i].type != FormField.constants.type.short_answer && formFieldArray[i].type != FormField.constants.type.long_answer) {
                                 insertParams.options = formFieldArray[i].options
                             }
                             formattedFormFields.push(insertParams);
@@ -87,7 +87,7 @@ module.exports = {
                         insertParams = {
                             title: inputs.data.title,
                             status: inputs.data.status,
-                            created_by: sails.helpers.user.getIdFromToken(inputs.auth.user_token),
+                            created_by: await sails.helpers.user.getIdFromToken(inputs.auth.user_token),
                             end_date: inputs.data.end_date,
                             custom_url: inputs.data.custom_url,
                             viewers: inputs.data.viewers,
@@ -105,7 +105,7 @@ module.exports = {
                         return exits.success({
                             success_message: "Form Created Successfully",
                             data: {
-                                user: addedResponse
+                                form: addedResponse
                             }
                         });
                     }

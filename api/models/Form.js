@@ -43,7 +43,8 @@ module.exports = {
     constants: {
         status: {
             active: "active",
-            unactive: "unactive"
+            unactive: "unactive",
+            closed: "closed"
         },
     }
 };

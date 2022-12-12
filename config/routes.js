@@ -46,6 +46,17 @@ module.exports.routes = {
   //   action: 'event/delete-event'
   // },
 
+  // Form CRUD
+  'post /form/create': {
+    action: 'form/create-form'
+  },
+  'post /form/list': {
+    action: 'form/list-form'
+  },
+  'post /form/update': {
+    action: 'form/update-form'
+  },
+
   // Custom Log CRUD
   'post /log/list': {
     action: 'custom-log/list-custom-log'

@@ -38,8 +38,7 @@ module.exports = {
                 formList = [],
                 promise = Form.find(inputs.data.search_criteria),
                 skip = 0,
-                sort = null,
-                promise = null;
+                sort = null;
 
 
             if (inputs && inputs.data) {
