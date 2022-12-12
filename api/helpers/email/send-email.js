@@ -47,7 +47,7 @@ module.exports = {
         await sails.helpers.customLog.createCustomLog({
             title: "Send Email",
             description: "send email to " + inputs.to,
-            user_id: inputs.auth.user_token,
+            user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token),
             severity: "log"
         })
 

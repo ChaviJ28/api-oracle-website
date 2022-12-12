@@ -35,10 +35,10 @@ module.exports = {
             type: "ref",
             required: true,
         },
-        responses: {
-            collection: "reponse",
-            via: "form"
-        }
+        // responses: {
+        //     collection: "Response",
+        //     via: "Form"
+        // }
     },
     constants: {
         status: {

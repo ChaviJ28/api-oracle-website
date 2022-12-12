@@ -40,8 +40,8 @@ module.exports = {
 
                     await sails.helpers.customLog.createCustomLog({
                         title: "Delete User",
-                        description: "User " + inputs.data.full_name + " deleted",
-                        user_id: inputs.auth.user_token
+                        description: "User deleted",
+                        user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                     })
 
 

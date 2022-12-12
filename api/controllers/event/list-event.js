@@ -36,10 +36,9 @@ module.exports = {
             var error = [],
                 searchCriteria = {},
                 formList = [],
-                promise = Form.find(inputs.data.search_criteria),
+                promise = Event.find(inputs.data.search_criteria),
                 skip = 0,
-                sort = null,
-                promise = null;
+                sort = null;
 
 
             if (inputs && inputs.data) {
