@@ -1,7 +1,7 @@
 /**
- * Form.js
+ * Response.js
  * 
- * Form
+ * Response
  */
 
 module.exports = {

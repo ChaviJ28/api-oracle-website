@@ -17,7 +17,7 @@ module.exports = {
         status: {
             type: "string",
             defaultsTo: "active",
-            isIn: ["active", "unactive", "closed"]
+            isIn: ["active", "draft", "closed"]
         },
         created_by: {
             model: "User",
@@ -43,7 +43,7 @@ module.exports = {
     constants: {
         status: {
             active: "active",
-            unactive: "unactive",
+            draft: "draft",
             closed: "closed"
         },
     }

@@ -57,6 +57,17 @@ module.exports.routes = {
     action: 'form/update-form'
   },
 
+  // Form CRUD
+  'post /response/create': {
+    action: 'response/create-response'
+  },
+  'post /response/list': {
+    action: 'response/list-response'
+  },
+  'post /response/update': {
+    action: 'response/update-response'
+  },
+
   // Custom Log CRUD
   'post /log/list': {
     action: 'custom-log/list-custom-log'
