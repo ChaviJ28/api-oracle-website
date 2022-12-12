@@ -50,11 +50,11 @@ module.exports = {
                 } else {
                     if (inputs.data.populate) {
                         if (inputs.data.populate.form) {
-                            promise.populate("Form");
+                            promise.populate("form");
                         }
 
                         if (inputs.data.populate.created_by) {
-                            promise.populate("User")
+                            promise.populate("created_by")
                         }
                     }
                 }

@@ -36,7 +36,7 @@ module.exports = {
         },
         big_event: {
             type: "string",
-            defaultsTo: "yes",
+            defaultsTo: "no",
             isIn: ["yes", "no"]
         },
         location: {
@@ -49,8 +49,8 @@ module.exports = {
         },
         status: {
             type: "string",
-            defaultsTo: "show",
-            isIn: ["show", "hide"]
+            defaultsTo: "hidden",
+            isIn: ["show", "hidden"]
         },
         custom_url: {
             type: "string",

@@ -76,7 +76,7 @@ module.exports = {
                     await sails.helpers.customLog.createCustomLog({
                         title: "Update User",
                         description: "User " + JSON.stringify(inputs.data.search_criteria) + " updated with params : " + JSON.stringify(inputs.data.update_params),
-                        user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                        user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                     })
 
                     return exits.success({

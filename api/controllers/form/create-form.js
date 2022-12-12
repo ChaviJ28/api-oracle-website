@@ -99,7 +99,7 @@ module.exports = {
                         await sails.helpers.customLog.createCustomLog({
                             title: "Create Form",
                             description: "Form " + addedResponse.title + " created",
-                            user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                            user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                         })
 
                         return exits.success({

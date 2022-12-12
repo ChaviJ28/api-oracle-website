@@ -82,7 +82,7 @@ module.exports = {
                     type: simpleValidator.constants.type.string,
                     value: inputs.data.time_to,
                     name: "Time To",
-                    required: Event.attributes.date.required
+                    required: Event.attributes.time_to.required
                 }, {
                     type: simpleValidator.constants.type.string,
                     value: inputs.data.big_event,
@@ -91,7 +91,7 @@ module.exports = {
                 }, {
                     type: simpleValidator.constants.type.string,
                     value: inputs.data.location,
-                    name: "location",
+                    name: "Location",
                     required: Event.attributes.location.required
                 }, {
                     type: simpleValidator.constants.type.string,
@@ -114,6 +114,8 @@ module.exports = {
                         insertParams = {
                             title: inputs.data.title,
                             status: inputs.data.status,
+                            description: inputs.data.description,
+                            small_description: inputs.data.small_description,
                             date: inputs.data.date,
                             custom_url: inputs.data.custom_url,
                             image_url: inputs.data.image_url,
@@ -122,7 +124,7 @@ module.exports = {
                             big_event: inputs.data.big_event,
                             location: inputs.data.location,
                             form: inputs.data.form,
-                            created_by: sails.helpers.user.getIdFromToken(inputs.auth.user_token),
+                            created_by: await sails.helpers.user.getIdFromToken(inputs.auth.user_token),
                         };
 
                         addedResponse = await Event.create(insertParams).fetch();
@@ -130,13 +132,13 @@ module.exports = {
                         await sails.helpers.customLog.createCustomLog({
                             title: "Create Event",
                             description: "Event " + addedResponse.title + " created",
-                            user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                            user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                         })
 
                         return exits.success({
                             success_message: "Event Created Successfully",
                             data: {
-                                user: addedResponse
+                                event: addedResponse
                             }
                         });
                     }

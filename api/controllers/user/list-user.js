@@ -54,7 +54,7 @@ module.exports = {
                     await sails.helpers.customLog.createCustomLog({
                         title: "List User",
                         description: "params: " + JSON.stringify(searchCriteria),
-                        user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                        user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                     })
 
                     return exits.success({

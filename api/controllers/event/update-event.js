@@ -45,27 +45,12 @@ module.exports = {
                     return exits.jsonError(error);
                 } else {
 
-                    // validate form fields again.
-                    // if (inputs.data.update_params.form_fields) {
-                    //     for (let i = 0; i < formFieldArray.length; i++) {
-                    //         updateParams = {
-                    //             question: formFieldArray[i].question,
-                    //             placeholder: formFieldArray[i].placeholder,
-                    //             type: formFieldArray[i].type,
-                    //             required: formFieldArray[i].required,
-                    //         }
-                    //         if (formFieldArray[i].type != Form.constants.type.short_answer && formFieldArray[i].type != Form.constants.type.long_answer) {
-                    //             updateParams.options = formFieldArray[i].options
-                    //         }
-                    //         formattedFormFields.push(updateParams);
-                    //     }
-                    // }
-                    updateResponse = await Form.update(inputs.data.search_criteria, inputs.data.update_params).fetch();
+                    updateResponse = await Event.update(inputs.data.search_criteria, inputs.data.update_params).fetch();
 
                     await sails.helpers.customLog.createCustomLog({
                         title: "Update Event",
                         description: "From " + JSON.stringify(inputs.data.search_criteria) + " updated with params : " + JSON.stringify(inputs.data.update_params),
-                        user_id: sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                        user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
                     })
 
                     return exits.success({
