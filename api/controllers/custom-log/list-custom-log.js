@@ -8,6 +8,9 @@ module.exports = {
                 data: {
                     search_criteria: {
                         id: "12345"
+                    },
+                    sort: {
+                        createdAt: -1
                     }
                 }
             }
@@ -25,6 +28,7 @@ module.exports = {
         try {
             var error = [],
                 searchCriteria = {},
+                sort = {},
                 customLogList = [];
 
             if (inputs && inputs.data) {
@@ -32,7 +36,11 @@ module.exports = {
                     searchCriteria = inputs.data.search_criteria;
                 }
 
-                customLogList = await CustomLog.find(searchCriteria);
+                if (inputs.data.sort) {
+                    sort = inputs.data.sort;
+                }
+
+                customLogList = await CustomLog.find(searchCriteria).sort(sort);
 
                 return exits.success({
                     data: customLogList

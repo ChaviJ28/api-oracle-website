@@ -8,7 +8,12 @@ module.exports = {
         }
     },
     fn: async function (inputs, exits) {
-        var recordsAdded = await CustomLog.create(inputs.data).fetch()
+        var enabled = sails.config.appsettings.custom_logs.enabled,
+            recordsAdded = []
+
+        if (enabled) {
+            recordsAdded = await CustomLog.create(inputs.data).fetch();
+        }
 
         return exits.success(recordsAdded);
     }

@@ -1,9 +1,10 @@
 module.exports = {
     security: {
         cors: {
-            // allowOrigins: [
-            //   "https://example.com",
-            // ]
+            allRoutes: true,
+            allowOrigins: "*",
+            allowCredentials: false,
+            allowRequestHeaders: "*",
         },
     },
 
