@@ -104,7 +104,7 @@ module.exports = {
                         return exits.success({
                             success_message: "User Created Successfully",
                             data: {
-                                user: userObject
+                                user: addedResponse
                             }
                         });
                     }
