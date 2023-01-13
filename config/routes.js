@@ -17,8 +17,12 @@ module.exports.routes = {
   'post /user/update': {
     action: 'user/update-user'
   },
-  'post /user/delete': {
-    action: 'user/delete-user'
+  // No user delete for now
+  // 'post /user/delete': {
+  //   action: 'user/delete-user'
+  // },
+  'post /user/list-access-rights': {
+    action: 'user/list-access-rights'
   },
 
   //User Actions
