@@ -54,7 +54,7 @@ module.exports = {
                         }
 
                         if (inputs.data.populate.created_by) {
-                            promise.populate("User")
+                            promise.populate("created_by")
                         }
                     }
                 }
