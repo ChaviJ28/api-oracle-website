@@ -33,6 +33,8 @@ module.exports = {
     },
     fn: async function (inputs, exits) {
         try {
+
+            sails.log(inputs);
             var error = [],
                 searchCriteria = {},
                 formList = [],
