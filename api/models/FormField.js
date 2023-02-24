@@ -6,6 +6,10 @@
 
 module.exports = {
     attributes: {
+        index: {
+            type: "number",
+            required: true,
+        },
         question: {
             type: "ref",
             required: true,

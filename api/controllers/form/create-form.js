@@ -73,6 +73,7 @@ module.exports = {
                     } else {
                         for (let i = 0; i < formFieldArray.length; i++) {
                             insertParams = {
+                                index: i,
                                 question: formFieldArray[i].question,
                                 placeholder: formFieldArray[i].placeholder,
                                 type: formFieldArray[i].type,

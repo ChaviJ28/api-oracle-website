@@ -58,12 +58,9 @@ module.exports = {
                     for (let i = 0; i < formFieldArray.length; i++) {
                         insertParams = {
                             question: formFieldArray[i].question,
-                            placeholder: formFieldArray[i].placeholder,
+                            index: formFieldArray[i].index,
                             type: formFieldArray[i].type,
-                            required: formFieldArray[i].required,
-                        }
-                        if (formFieldArray[i].type != FormField.constants.type.short_answer && formFieldArray[i].type != FormField.constants.type.long_answer) {
-                            insertParams.options = formFieldArray[i].options
+                            answer: formFieldArray[i].answer
                         }
                         formattedFormFields.push(insertParams);
                     }
