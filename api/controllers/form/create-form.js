@@ -24,7 +24,7 @@ module.exports = {
             responseType: "jsonOk"
         }
     },
-    fn: async function (inputs, exits) {
+    fn: async function(inputs, exits) {
         try {
             var error = [],
                 insertParams = {},
@@ -67,48 +67,55 @@ module.exports = {
                 } else {
                     validRights = await sails.helpers.user.validateAccessRights(inputs.auth.user_token, "create_form")
                     if (!validRights) {
-                        error.push(await sails.helpers.utility.getAppError("user.no_access"));
+                        error.push(await sails.helpers.utility.getAppError("user.invalid_custom_url"));
 
                         return exits.jsonError(error);
                     } else {
-                        for (let i = 0; i < formFieldArray.length; i++) {
+                        isValidCustomUrl = await sails.helpers.form.isValidCustomUrl(inputs.data.custom_url)
+                        if (!isValidCustomUrl) {
+                            error.push(await sails.helpers.utility.getAppError("form.no_access"));
+
+                            return exits.jsonError(error);
+                        } else {
+                            for (let i = 0; i < formFieldArray.length; i++) {
+                                insertParams = {
+                                    index: i,
+                                    question: formFieldArray[i].question,
+                                    placeholder: formFieldArray[i].placeholder,
+                                    type: formFieldArray[i].type,
+                                    required: formFieldArray[i].required,
+                                }
+                                if (formFieldArray[i].type != FormField.constants.type.short_answer && formFieldArray[i].type != FormField.constants.type.long_answer) {
+                                    insertParams.options = formFieldArray[i].options
+                                }
+                                formattedFormFields.push(insertParams);
+                            }
+
                             insertParams = {
-                                index: i,
-                                question: formFieldArray[i].question,
-                                placeholder: formFieldArray[i].placeholder,
-                                type: formFieldArray[i].type,
-                                required: formFieldArray[i].required,
-                            }
-                            if (formFieldArray[i].type != FormField.constants.type.short_answer && formFieldArray[i].type != FormField.constants.type.long_answer) {
-                                insertParams.options = formFieldArray[i].options
-                            }
-                            formattedFormFields.push(insertParams);
+                                title: inputs.data.title,
+                                status: inputs.data.status,
+                                created_by: await sails.helpers.user.getIdFromToken(inputs.auth.user_token),
+                                end_date: inputs.data.end_date,
+                                custom_url: inputs.data.custom_url,
+                                viewers: inputs.data.viewers,
+                                form_fields: formattedFormFields,
+                            };
+
+                            addedResponse = await Form.create(insertParams).fetch();
+
+                            await sails.helpers.customLog.createCustomLog({
+                                title: "Create Form",
+                                description: "Form " + addedResponse.title + " created",
+                                user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
+                            })
+
+                            return exits.success({
+                                success_message: "Form Created Successfully",
+                                data: {
+                                    form: addedResponse
+                                }
+                            });
                         }
-
-                        insertParams = {
-                            title: inputs.data.title,
-                            status: inputs.data.status,
-                            created_by: await sails.helpers.user.getIdFromToken(inputs.auth.user_token),
-                            end_date: inputs.data.end_date,
-                            custom_url: inputs.data.custom_url,
-                            viewers: inputs.data.viewers,
-                            form_fields: formattedFormFields,
-                        };
-
-                        addedResponse = await Form.create(insertParams).fetch();
-
-                        await sails.helpers.customLog.createCustomLog({
-                            title: "Create Form",
-                            description: "Form " + addedResponse.title + " created",
-                            user_id: await sails.helpers.user.getIdFromToken(inputs.auth.user_token)
-                        })
-
-                        return exits.success({
-                            success_message: "Form Created Successfully",
-                            data: {
-                                form: addedResponse
-                            }
-                        });
                     }
                 }
             }

@@ -58,5 +58,11 @@ module.exports.apperrors = {
             code: 5404,
             message: "Invalid Email"
         },
+    },
+    form: {
+        invalid_custom_url: {
+            code: 5500,
+            message: "Invalid Custom URL"
+        },
     }
 }
