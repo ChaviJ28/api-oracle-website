@@ -28,9 +28,9 @@ module.exports = {
                 sendEmailresponse = null,
                 content = "";
 
-            content = "Testing Oracle Email Delivering System for New UoM Oracle Club Website"
+            content = "Testing Email Delivering System for New UoM Oracle Club Mail Server"
 
-            sendEmailresponse = await sails.helpers.email.sendEmail("chavi.surujbhali.umail.uom.ac.mu", "Oracle Email Delivery Testing", content);
+            sendEmailresponse = await sails.helpers.email.sendEmail(["chavi.surujbhali@umail.uom.ac.mu", "surujbhalichavi@gmail.com"], "UoM Oracle Club Name Testing", content);
 
             return exits.success({
                 data: {
