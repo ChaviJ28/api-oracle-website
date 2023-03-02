@@ -56,7 +56,7 @@ module.exports = {
                                 type: formFieldArray[i].type,
                                 required: formFieldArray[i].required,
                             }
-                            if (formFieldArray[i].type != Form.constants.type.short_answer && formFieldArray[i].type != Form.constants.type.long_answer) {
+                            if (formFieldArray[i].type != FormField.constants.type.short_text && formFieldArray[i].type != FormField.constants.type.long_text && formFieldArray[i].type != FormField.constants.type.email) {
                                 updateParams.options = formFieldArray[i].options
                             }
                             formattedFormFields.push(updateParams);
@@ -80,7 +80,7 @@ module.exports = {
                 return exits.jsonError(error);
             }
         } catch (err) {
-            sails.log.debug("update-user.js (Line: 70) : e"); //debug
+            sails.log.debug("update-form.js (Line: 70) : e"); //debug
             sails.log.debug(err); //debug
 
             error.push(await sails.helpers.utility.getAppError("record.update_error"));

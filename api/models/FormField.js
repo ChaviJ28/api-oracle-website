@@ -39,8 +39,9 @@ module.exports = {
     },
     constants: {
         type: {
-            short_answer: "short_answer",
-            long_answer: "long_answer",
+            email: "email",
+            short_text: "short_text",
+            long_text: "long_text",
             radio: "radio",
             checkbox: "checkbox",
             date: "date",
