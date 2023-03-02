@@ -34,6 +34,7 @@ module.exports = {
             error = [],
             updateParams = {},
             formattedFormFields = [],
+            formFieldArray = [],
             isEmptyObject = require("is-empty-object");
 
         try {
@@ -47,6 +48,7 @@ module.exports = {
 
                     // validate form fields again.
                     if (inputs.data.update_params.form_fields) {
+                        formFieldArray = inputs.data.update_params.form_fields;
                         for (let i = 0; i < formFieldArray.length; i++) {
                             updateParams = {
                                 question: formFieldArray[i].question,
