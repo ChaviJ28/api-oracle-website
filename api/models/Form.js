@@ -35,6 +35,14 @@ module.exports = {
             type: "ref",
             required: true,
         },
+        description: {
+            type: "string",
+            required: false
+        },
+        banner: {
+            type: "string",
+            required: true,
+        }
         // responses: {
         //     collection: "Response",
         //     via: "Form"

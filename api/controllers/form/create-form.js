@@ -38,11 +38,22 @@ module.exports = {
                 addedResponse = "";
 
             if (inputs.data) {
+                sails.log(inputs.data.banner)
                 validationElements = [{
                     type: simpleValidator.constants.type.string,
                     value: inputs.data.title,
                     name: "Title",
                     required: Form.attributes.title.required
+                }, {
+                    type: simpleValidator.constants.type.string,
+                    value: inputs.data.description,
+                    name: "Description",
+                    required: Form.attributes.description.required
+                }, {
+                    type: simpleValidator.constants.type.string,
+                    value: inputs.data.banner,
+                    name: "Banner",
+                    required: Form.attributes.banner.required
                 }, {
                     type: simpleValidator.constants.type.string,
                     value: inputs.data.status,
@@ -99,6 +110,8 @@ module.exports = {
                                 custom_url: inputs.data.custom_url,
                                 viewers: inputs.data.viewers,
                                 form_fields: formattedFormFields,
+                                banner: inputs.data.banner,
+                                description: inputs.data.description,
                             };
 
                             addedResponse = await Form.create(insertParams).fetch();
